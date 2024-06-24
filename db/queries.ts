@@ -29,7 +29,7 @@ export const getUserProgress = cache(async () => {
   return data;
 });
 
-export const getCoursesByIdId = cache(async (courseId: number) => {
+export const getCoursesById = cache(async (courseId: number) => {
   const data = await db.query.courses.findFirst({
     where: eq(courses.id, courseId),
     // TODO: Populate units and lessons
@@ -64,6 +64,9 @@ export const getUnits = cache(async () => {
 
   const normalizedData = data.map((unit) => {
     const lessonsWithCompletedStatus = unit.lessons.map((lesson) => {
+      if (lesson.challenges.length === 0) {
+        return { ...lesson, completed: false };
+      }
       const allCompletedChallenges = lesson.challenges.every((challenge) => {
         return (
           challenge.challengeProgress &&
@@ -180,10 +183,7 @@ export const getLessonPercentage = cache(async () => {
     (challenge) => challenge.completed
   );
   const percentage = Math.round(
-    (completedChallenges.length /
-      completedChallenges.length /
-      lesson.challenges.length) *
-      100
+    (completedChallenges.length / lesson.challenges.length) * 100
   );
   return percentage;
 });

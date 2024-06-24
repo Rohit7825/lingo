@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@/db/drizzle";
-import { getCoursesByIdId, getUserProgress } from "@/db/queries";
+import { getCoursesById, getUserProgress } from "@/db/queries";
 import { userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
@@ -15,7 +15,7 @@ export const upsertUserProgress = async (courseId: number) => {
     throw new Error("Unautorized");
   }
 
-  const course = await getCoursesByIdId(courseId);
+  const course = await getCoursesById(courseId);
 
   if (!course) {
     throw new Error("Course not found");
