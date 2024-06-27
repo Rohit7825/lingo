@@ -106,7 +106,7 @@ const main = async () => {
         lessonId: 1,
         type: "SELECT",
         order: 3,
-        question: 'Ehcih one og these is "the robot"?',
+        question: 'Which one of these is "the robot"?',
       },
     ]);
 
@@ -198,7 +198,7 @@ const main = async () => {
         lessonId: 2,
         type: "SELECT",
         order: 3,
-        question: 'Which one og these is "the robot"?',
+        question: 'Which one of these is "the robot"?',
       },
     ]);
 
